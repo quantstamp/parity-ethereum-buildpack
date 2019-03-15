@@ -1,6 +1,13 @@
 #!/usr/bin/env bash
+BUILD_DIR="${1}"
+
 echo "Downloading Parity"
 curl https://releases.parity.io/ethereum/v2.3.5/x86_64-unknown-linux-gnu/parity -s -O
 chmod u+x parity
-mkdir -p vendor/parity/bin
-mv parity vendor/parity/bin/
+mkdir -p /app/.parity/bin/
+mv parity /app/.parity/bin/
+
+mkdir -p "$BUILD_DIR"/.profile.d
+cat <<EOF >"$BUILD_DIR"/.profile.d/parity.sh
+PATH=/app/.parity/bin:\$PATH
+EOF
